@@ -29,9 +29,9 @@ class MovieDtoMapper @Inject constructor() {
                 dtoObject.posterPath
 
         return Movie(
-            adult = dtoObject.isAdult,
-            backdropPath = backdropPath,
             id = dtoObject.id,
+            isAdult = dtoObject.isAdult,
+            backdropPath = backdropPath,
             originalLanguage = dtoObject.originalLanguage,
             originalTitle = dtoObject.originalTitle,
             overview = dtoObject.overview,

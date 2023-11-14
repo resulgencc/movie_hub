@@ -1,9 +1,9 @@
 package com.resulgenc.moviehub.data.model
 
 data class Movie(
-    val adult: Boolean,
-    val backdropPath: String,
     val id: Int,
+    val isAdult: Boolean,
+    val backdropPath: String,
     val originalLanguage: String,
     val originalTitle: String,
     val overview: String,
