@@ -8,8 +8,8 @@ import com.resulgenc.moviehub.BuildConfig
 import com.resulgenc.moviehub.data.network.interceptors.ConnectionInterceptor
 import com.resulgenc.moviehub.data.network.interceptors.HeaderInterceptor
 import com.resulgenc.moviehub.data.network.interceptors.QueryParameterInterceptor
-import com.resulgenc.moviehub.data.network.services.AllMoviesServices
 import com.resulgenc.moviehub.data.network.services.MovieDetailService
+import com.resulgenc.moviehub.data.network.services.MovieListServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -56,7 +56,7 @@ object NetworkModule {
     @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BASIC else HttpLoggingInterceptor.Level.NONE
         }
     }
 
@@ -135,12 +135,12 @@ object NetworkModule {
         .build()
 
     /**
-     * Provides an instance of the [AllMoviesServices] interface created using Retrofit.
+     * Provides an instance of the [MovieListServices] interface created using Retrofit.
      */
     @Provides
     @Singleton
-    fun provideAllMoviesServices(retrofit: Retrofit): AllMoviesServices =
-        retrofit.create(AllMoviesServices::class.java)
+    fun provideAllMoviesServices(retrofit: Retrofit): MovieListServices =
+        retrofit.create(MovieListServices::class.java)
 
     /**
      * Provides a Retrofit instance with the specified configuration for MovieDetailService.

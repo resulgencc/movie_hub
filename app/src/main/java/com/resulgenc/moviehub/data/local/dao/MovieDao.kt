@@ -1,5 +1,6 @@
 package com.resulgenc.moviehub.data.local.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -29,4 +30,23 @@ interface MovieDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrUpdateMovies(movies: List<MovieEntity>)
+
+    /**
+     * Retrieves a paging source for MovieEntity objects from the local database
+     * based on the specified sorting parameter.
+     *
+     * @param sortBy The sorting parameter.
+     * @return A PagingSource for MovieEntity objects based on the specified sorting parameter.
+     */
+    @Query("SELECT * FROM table_movies WHERE sort_by = :sortBy")
+    fun getPagingSourceByCategory(sortBy: String): PagingSource<Int, MovieEntity>
+
+    /**
+     * Clears all MovieEntity objects with the specified sorting parameter from the local database.
+     *
+     * @param sortBy The sorting parameter of MovieEntity objects to be cleared.
+     */
+    @Query("DELETE FROM table_movies WHERE sort_by = :sortBy")
+    suspend fun clearAllMovies(sortBy: String)
 }
+

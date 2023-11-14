@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName
 * @property totalPages The total number of pages available.
 * @property totalResults The total number of results available.
 */
-data class AllMoviesResponse(
+data class MovieListResponse(
     @SerializedName(value = "page") val page: Int = 0,
     @SerializedName(value = "results") val movies: List<MovieDto> = emptyList(),
     @SerializedName(value = "total_pages") val totalPages: Int = 0,

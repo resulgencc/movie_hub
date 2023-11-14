@@ -19,7 +19,7 @@ class MovieEntityMapper @Inject constructor() {
      */
     fun mapFromEntity(entity: MovieEntity): Movie {
         return Movie(
-            id = entity.movieId,
+            id = entity.id,
             isAdult = entity.isAdult,
             backdropPath = entity.backdropPath,
             originalLanguage = entity.originalLanguage,
@@ -55,9 +55,9 @@ class MovieEntityMapper @Inject constructor() {
      * @param sortBy The sorting parameter for the MovieEntity.
      * @return The corresponding MovieEntity object.
      */
-    fun mapToEntity(movie: Movie, sortBy: String): MovieEntity {
+    fun mapToEntity(movie: Movie, sortBy: String, currentPage: Int): MovieEntity {
         return MovieEntity(
-            movieId = movie.id,
+            id = movie.id,
             isAdult = movie.isAdult,
             backdropPath = movie.backdropPath,
             originalLanguage = movie.originalLanguage,
@@ -70,7 +70,8 @@ class MovieEntityMapper @Inject constructor() {
             video = movie.video,
             voteAverage = movie.voteAverage,
             voteCount = movie.voteCount,
-            sortBy = sortBy
+            sortBy = sortBy,
+            currentPage = currentPage
         )
     }
 
@@ -81,9 +82,9 @@ class MovieEntityMapper @Inject constructor() {
      * @param sortBy The sorting parameter for the MovieEntity list.
      * @return The corresponding list of MovieEntity objects.
      */
-    fun mapToEntityList(movies: List<Movie>, sortBy: String): List<MovieEntity> {
+    fun mapToEntityList(movies: List<Movie>, sortBy: String, currentPage: Int): List<MovieEntity> {
         return movies.map {
-            mapToEntity(it, sortBy)
+            mapToEntity(it, sortBy, currentPage)
         }
     }
 }

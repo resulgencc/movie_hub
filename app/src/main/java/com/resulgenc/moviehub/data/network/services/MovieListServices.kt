@@ -1,10 +1,10 @@
 package com.resulgenc.moviehub.data.network.services
 
-import com.resulgenc.moviehub.data.network.dto.AllMoviesResponse
+import com.resulgenc.moviehub.data.network.dto.MovieListResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface AllMoviesServices {
+interface MovieListServices {
 
 
     /**
@@ -16,7 +16,7 @@ interface AllMoviesServices {
      * @param page The page number of the results. Default is 1.
      * @param sortBy The sorting order for the results. Default is "popularity.desc".
      *
-     * @return An [AllMoviesResponse] representing the response containing the list of movies and
+     * @return An [MovieListResponse] representing the response containing the list of movies and
      * additional information.
      */
 
@@ -26,6 +26,6 @@ interface AllMoviesServices {
         @Query("include_video") includeVideo: Boolean = true,
         @Query("language") language: String = "en-US",
         @Query("page") page: Int = 1,
-        @Query("sort_by") sortBy: String = "popularity.desc"
-    ): AllMoviesResponse
+        @Query("sort_by") sortBy: String
+    ): MovieListResponse
 }
