@@ -10,8 +10,9 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "table_movies")
 data class MovieEntity(
-    @PrimaryKey
-    @ColumnInfo("id") val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo("id") val id: Int = 0, // entity Id
+    @ColumnInfo("movieId") val movieId: Int,
     @ColumnInfo("is_adult") val isAdult: Boolean,
     @ColumnInfo("backdrop_path") val backdropPath: String,
     @ColumnInfo("original_language") val originalLanguage: String,

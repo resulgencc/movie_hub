@@ -27,6 +27,8 @@ class MovieListRemoteMediator(
         state: PagingState<Int, MovieEntity>
     ): MediatorResult {
 
+        val moviesDao = moviesDatabase.moviesDao()
+
         return try {
             val page = when (loadType) {
                 LoadType.REFRESH -> 1
@@ -35,16 +37,14 @@ class MovieListRemoteMediator(
                 }
 
                 LoadType.APPEND -> {
-                    val lastItem = state.lastItemOrNull()
-                    lastItem?.currentPage?.plus(1) ?: 1
+                    val lastItem = state.lastItemOrNull() ?: moviesDao.lastOne(sortBy = sortBy.value)
+                    lastItem?.currentPage?.plus(1) ?: return MediatorResult.Success(endOfPaginationReached = true)
                 }
             }
 
             val response = movieListServices.getAllMovies(page = page, sortBy = sortBy.value)
 
             moviesDatabase.withTransaction {
-                val moviesDao = moviesDatabase.moviesDao()
-
                 if (loadType == LoadType.REFRESH) {
                     moviesDao.clearAllMovies(sortBy = sortBy.value)
                 }
@@ -59,7 +59,7 @@ class MovieListRemoteMediator(
                 moviesDao.insertOrUpdateMovies(entities)
             }
 
-            MediatorResult.Success(endOfPaginationReached = response.page == response.totalPages)
+            MediatorResult.Success(endOfPaginationReached = response.movies.isEmpty())
 
         } catch (exception: Exception) {
             Timber.e(exception)

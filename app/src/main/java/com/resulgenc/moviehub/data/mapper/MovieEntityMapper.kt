@@ -57,7 +57,7 @@ class MovieEntityMapper @Inject constructor() {
      */
     fun mapToEntity(movie: Movie, sortBy: String, currentPage: Int): MovieEntity {
         return MovieEntity(
-            id = movie.id,
+            movieId = movie.id,
             isAdult = movie.isAdult,
             backdropPath = movie.backdropPath,
             originalLanguage = movie.originalLanguage,

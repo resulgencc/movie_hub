@@ -25,7 +25,7 @@ interface MovieListServices {
         @Query("include_adult") includeAdult: Boolean = false,
         @Query("include_video") includeVideo: Boolean = true,
         @Query("language") language: String = "en-US",
-        @Query("page") page: Int = 1,
+        @Query("page") page: Int,
         @Query("sort_by") sortBy: String
     ): MovieListResponse
 }

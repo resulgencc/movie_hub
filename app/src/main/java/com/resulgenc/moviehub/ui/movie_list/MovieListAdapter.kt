@@ -19,7 +19,7 @@ class MovieListAdapter(
 
     override fun onBindViewHolder(holder: MovieListAdapterViewHolder, position: Int) {
         getItem(position)?.let { movie ->
-            val text = "$position: ${movie.title}"
+            val text = "$position: ${movie.id} ${movie.title}"
             holder.binding.textView.text = text
         }
     }
