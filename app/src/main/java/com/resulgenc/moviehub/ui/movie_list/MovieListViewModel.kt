@@ -21,7 +21,13 @@ class MovieListViewModel @Inject constructor(
     private val entityMapper: MovieEntityMapper,
 ) : BaseViewModel() {
 
-    fun getMoviesByCategory(sortBy: SortBy): Flow<PagingData<Movie>> =
+    fun getMoviesByPopularity() = getMoviesByCategory(SortBy.POPULARITY)
+
+    fun getMoviesByReleaseDate() = getMoviesByCategory(SortBy.PRIMARY_RELEASE_DATE)
+
+    fun getMoviesByRevenue() = getMoviesByCategory(SortBy.REVENUE)
+
+    private fun getMoviesByCategory(sortBy: SortBy): Flow<PagingData<Movie>> =
         movieListRepository
             .getMoviesByCategory(sortBy = sortBy)
             .map { pagingData ->

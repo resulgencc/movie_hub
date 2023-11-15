@@ -9,7 +9,7 @@ import com.resulgenc.moviehub.data.model.Movie
 import com.resulgenc.moviehub.databinding.AdapterItemMovieListBinding
 
 class MovieListAdapter(
-    private val onMovieSelected: ((Movie) -> Unit)
+    private val onMovieSelected: ((Movie) -> Unit)?
 ) : PagingDataAdapter<Movie, MovieListAdapter.MovieListAdapterViewHolder>(COMPARATOR) {
 
 
@@ -19,8 +19,12 @@ class MovieListAdapter(
 
     override fun onBindViewHolder(holder: MovieListAdapterViewHolder, position: Int) {
         getItem(position)?.let { movie ->
-            val text = "$position: ${movie.id} ${movie.title}"
-            holder.binding.textView.text = text
+
+            holder.binding.movie = movie
+
+            holder.binding.root.setOnClickListener {
+                onMovieSelected?.invoke(movie)
+            }
         }
     }
 
