@@ -22,6 +22,7 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrUpdateMovies(movies: List<MovieEntity>)
 
+
     /**
      * Retrieves a paging source for MovieEntity objects from the local database
      * based on the specified sorting parameter.
@@ -32,6 +33,7 @@ interface MovieDao {
     @Query("SELECT * FROM table_movies WHERE sort_by = :sortBy")
     fun getPagingSourceByCategory(sortBy: String): PagingSource<Int, MovieEntity>
 
+
     /**
      * Clears all MovieEntity objects with the specified sorting parameter from the local database.
      *
@@ -39,6 +41,7 @@ interface MovieDao {
      */
     @Query("DELETE FROM table_movies WHERE sort_by = :sortBy")
     suspend fun clearAllMovies(sortBy: String)
+
 
     /**
      * Retrieves the last MovieEntity object with the specified sorting parameter from the local database,
@@ -49,5 +52,15 @@ interface MovieDao {
      */
     @Query("SELECT * FROM table_movies WHERE sort_by = :sortBy ORDER BY current_page DESC LIMIT 1")
     suspend fun lastOne(sortBy: String): MovieEntity?
+
+
+    /**
+     * Retrieves the MovieEntity object with the specified ID from the local database.
+     *
+     * @param id The ID of the MovieEntity to retrieve.
+     * @return The MovieEntity object with the specified ID, if found; otherwise, null.
+     */
+    @Query("SELECT * FROM table_movies WHERE id=:id")
+    suspend fun findById(id: Int): MovieEntity?
 }
 

@@ -2,17 +2,19 @@ package com.resulgenc.moviehub.ui.movie_list
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavHost
 import com.resulgenc.moviehub.R
 import com.resulgenc.moviehub.data.model.Movie
 import com.resulgenc.moviehub.databinding.FragmentMovieListBinding
 import com.resulgenc.moviehub.ui.base_classes.BaseFragment
+import com.resulgenc.moviehub.utils.Constants
 import com.resulgenc.moviehub.utils.extensions.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -66,6 +68,12 @@ class MovieListFragment : BaseFragment(R.layout.fragment_movie_list) {
     }
 
     private fun onMovieSelected(movie: Movie) {
-        Timber.d("onSelected: $movie")
+        val navHostFragment = childFragmentManager.findFragmentById(R.id.detail_nav_host) as NavHost
+        val navController = navHostFragment.navController
+
+        val bundle = bundleOf(Constants.SELECTED_MOVIE_ID to movie.id)
+        navController.navigate(R.id.movieDetailFragment, bundle)
+
+        binding.slidingPanelLayout.open()
     }
 }
