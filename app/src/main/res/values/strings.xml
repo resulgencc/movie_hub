@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Movie Hub</string>
+
+    <string name="popular_title">Popular</string>
+    <string name="primary_release_date_title">Release Date</string>
+    <string name="revenue_title">Revenue</string>
 </resources>
