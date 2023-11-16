@@ -3,92 +3,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.slidingpanelayout.widget.SlidingPaneLayout
-        android:id="@+id/slidingPanelLayout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="280dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:orientation="vertical">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/black">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/black">
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@mipmap/ic_launcher" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:src="@mipmap/ic_launcher" />
+            </LinearLayout>
 
-                </LinearLayout>
+        </com.google.android.material.appbar.MaterialToolbar>
 
-            </com.google.android.material.appbar.MaterialToolbar>
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/CategoryTitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/popular_title" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/CategoryTitleStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/popular_title" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/popularRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recycler_view_height"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/adapter_item_movie_list" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/popularRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/recycler_view_height"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/adapter_item_movie_list" />
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/CategoryTitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/primary_release_date_title" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/CategoryTitleStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/primary_release_date_title" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/primaryReleaseDateRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recycler_view_height"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/adapter_item_movie_list" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/primaryReleaseDateRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/recycler_view_height"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/adapter_item_movie_list" />
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/CategoryTitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/revenue_title" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/CategoryTitleStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/revenue_title" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/revenueRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recycler_view_height"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/adapter_item_movie_list" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/revenueRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/recycler_view_height"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/adapter_item_movie_list" />
-
-        </LinearLayout>
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/detail_nav_host"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/movie_detail_navigation" />
-
-    </androidx.slidingpanelayout.widget.SlidingPaneLayout>
-
-
+    </LinearLayout>
 </layout>

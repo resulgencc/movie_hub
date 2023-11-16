@@ -1,5 +1,10 @@
 package com.resulgenc.moviehub.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+
+@Parcelize
 data class Movie(
     val id: Int,
     val isAdult: Boolean,
@@ -15,12 +20,4 @@ data class Movie(
     val voteAverage: Float,
     val voteCount: Int,
     val videoData: VideoData,
-) {
-
-    /**
-     * Generates a formatted string representing the vote average of the movie.
-     *
-     * @return A formatted string, e.g., "7.50/10".
-     */
-    fun vote(): String = String.format("%.02f/10", voteAverage)
-}
+) : Parcelable

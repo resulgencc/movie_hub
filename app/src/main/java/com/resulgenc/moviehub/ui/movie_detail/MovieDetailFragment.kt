@@ -9,14 +9,15 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaItem.DrmConfiguration
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.navigation.fragment.navArgs
 import com.resulgenc.moviehub.R
 import com.resulgenc.moviehub.data.model.Movie
 import com.resulgenc.moviehub.data.model.VideoData
 import com.resulgenc.moviehub.databinding.FragmentMovieDetailBinding
 import com.resulgenc.moviehub.ui.base_classes.BaseFragment
-import com.resulgenc.moviehub.utils.Constants
 import com.resulgenc.moviehub.utils.extensions.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.util.UUID
 
 
@@ -27,36 +28,17 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail), Player
 
     private val viewModel by viewModels<MovieDetailViewModel>()
 
+    private val args: MovieDetailFragmentArgs by navArgs()
+
     private val player: ExoPlayer by lazy {
         ExoPlayer.Builder(requireContext()).build()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initObservers()
-        parseArguments()
-    }
 
-    private fun parseArguments() {
-        try {
-            val bundle = arguments ?: return
-
-            val selectedMovieId = bundle.getInt(
-                Constants.SELECTED_MOVIE_ID, Constants.SELECTED_MOVIE_INVALID_VALUE
-            )
-
-            if (selectedMovieId != Constants.SELECTED_MOVIE_INVALID_VALUE) {
-                viewModel.findMovieById(movieId = selectedMovieId)
-            }
-        } catch (ex: Exception) {
-            ex.printStackTrace()
-        }
-    }
-
-    private fun initObservers() {
-        viewModel.selectedMovie.observe(viewLifecycleOwner) {
-            initViews(movie = it)
-        }
+        val movie = args.selectedMovie
+        initViews(movie)
     }
 
     private fun initViews(movie: Movie) {
@@ -117,9 +99,25 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail), Player
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        Timber.d("onPause")
+    }
+
     override fun onStop() {
         super.onStop()
         player.release()
+        Timber.d("onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.d("onDestroy")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Timber.d("onDestroyView")
     }
 
 }
