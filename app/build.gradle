@@ -125,6 +125,14 @@ dependencies {
     // image loader
     implementation 'com.github.bumptech.glide:glide:4.15.1'
 
+
+    // exoplayer
+    def exo_version = "1.1.1"
+    implementation "androidx.media3:media3-exoplayer:$exo_version"
+    implementation "androidx.media3:media3-exoplayer-dash:$exo_version"
+    implementation "androidx.media3:media3-ui:$exo_version"
+
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'

@@ -1,7 +1,9 @@
 package com.resulgenc.moviehub.data.mapper
 
 import com.resulgenc.moviehub.data.local.entities.MovieEntity
+import com.resulgenc.moviehub.data.local.entities.VideoEntity
 import com.resulgenc.moviehub.data.model.Movie
+import com.resulgenc.moviehub.data.model.VideoData
 import javax.inject.Inject
 
 /**
@@ -31,7 +33,8 @@ class MovieEntityMapper @Inject constructor() {
             title = entity.title,
             video = entity.video,
             voteAverage = entity.voteAverage,
-            voteCount = entity.voteCount
+            voteCount = entity.voteCount,
+            videoData = mapFromVideoEntity(entity.videoData)
         )
     }
 
@@ -71,7 +74,8 @@ class MovieEntityMapper @Inject constructor() {
             voteAverage = movie.voteAverage,
             voteCount = movie.voteCount,
             sortBy = sortBy,
-            currentPage = currentPage
+            currentPage = currentPage,
+            videoData = mapToVideoEntity(movie.videoData)
         )
     }
 
@@ -87,4 +91,12 @@ class MovieEntityMapper @Inject constructor() {
             mapToEntity(it, sortBy, currentPage)
         }
     }
+
+    private fun mapFromVideoEntity(videoEntity: VideoEntity) = VideoData(
+        videoUri = videoEntity.videoUri, drmLicenseUri = videoEntity.drmLicenseUri
+    )
+
+    private fun mapToVideoEntity(movieData: VideoData) = VideoEntity(
+        videoUri = movieData.videoUri, drmLicenseUri = movieData.drmLicenseUri
+    )
 }

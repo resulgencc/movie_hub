@@ -17,7 +17,8 @@ data class MovieDto(
     @SerializedName("title") val title: String = "",
     @SerializedName("video") val video: Boolean = false,
     @SerializedName("vote_average") val voteAverage: Float = 0.0f,
-    @SerializedName("vote_count") val voteCount: Int = 0
+    @SerializedName("vote_count") val voteCount: Int = 0,
+    @SerializedName("video_data") val videoData: VideoDto = VideoDto.dummyDto(),
 ) {
 
     /**
@@ -38,10 +39,10 @@ data class MovieDto(
 
 
     /**
-    * Overrides the default hashCode implementation to generate a hash based on the 'id' property.
-    *
-    * @return The hash code value.
-    */
+     * Overrides the default hashCode implementation to generate a hash based on the 'id' property.
+     *
+     * @return The hash code value.
+     */
     override fun hashCode(): Int {
         return Objects.hashCode(id)
     }

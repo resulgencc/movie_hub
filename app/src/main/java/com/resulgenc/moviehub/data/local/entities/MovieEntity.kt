@@ -1,6 +1,7 @@
 package com.resulgenc.moviehub.data.local.entities
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -27,4 +28,5 @@ data class MovieEntity(
     @ColumnInfo("vote_count") val voteCount: Int,
     @ColumnInfo("sort_by") val sortBy: String,
     @ColumnInfo("current_page") val currentPage: Int,
+    @Embedded val videoData: VideoEntity
 )

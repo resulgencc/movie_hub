@@ -2,7 +2,9 @@ package com.resulgenc.moviehub.data.mapper
 
 import com.resulgenc.moviehub.BuildConfig
 import com.resulgenc.moviehub.data.model.Movie
+import com.resulgenc.moviehub.data.model.VideoData
 import com.resulgenc.moviehub.data.network.dto.MovieDto
+import com.resulgenc.moviehub.data.network.dto.VideoDto
 import com.resulgenc.moviehub.utils.Constants
 import javax.inject.Inject
 
@@ -41,7 +43,8 @@ class MovieDtoMapper @Inject constructor() {
             title = dtoObject.title,
             video = dtoObject.video,
             voteAverage = dtoObject.voteAverage,
-            voteCount = dtoObject.voteCount
+            voteCount = dtoObject.voteCount,
+            videoData = mapVideoData(dtoObject.videoData)
         )
     }
 
@@ -56,4 +59,9 @@ class MovieDtoMapper @Inject constructor() {
             mapFromDto(it)
         }
     }
+
+    private fun mapVideoData(videoDto: VideoDto) = VideoData(
+        videoUri = videoDto.videoUri,
+        drmLicenseUri = videoDto.drmLicenseUri,
+    )
 }
