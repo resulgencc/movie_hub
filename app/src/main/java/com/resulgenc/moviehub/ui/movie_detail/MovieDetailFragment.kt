@@ -1,5 +1,6 @@
 package com.resulgenc.moviehub.ui.movie_detail
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -17,47 +18,84 @@ import com.resulgenc.moviehub.databinding.FragmentMovieDetailBinding
 import com.resulgenc.moviehub.ui.base_classes.BaseFragment
 import com.resulgenc.moviehub.utils.extensions.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import java.util.UUID
 
 
 @AndroidEntryPoint
+/**
+ * MovieDetailFragment represents a fragment displaying details of a movie and handling video playback.
+ * Inherits from BaseFragment to manage system UI visibility.
+ */
 class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail), Player.Listener {
 
+    // ViewBinding for the layout
     private val binding by viewBinding(FragmentMovieDetailBinding::bind)
 
+    // ViewModel for managing movie details
     private val viewModel by viewModels<MovieDetailViewModel>()
 
+    // Arguments passed to the fragment
     private val args: MovieDetailFragmentArgs by navArgs()
 
+    // ExoPlayer instance for video playback
     private val player: ExoPlayer by lazy {
         ExoPlayer.Builder(requireContext()).build()
     }
 
+    // Called when the fragment's view is created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Sets up system UI visibility based on device orientation
+        setSystemUI()
+
+        // Initializes observers for ViewModel data changes
+        initObservers()
+
+        // Retrieves movie details from arguments and initializes views
         val movie = args.selectedMovie
         initViews(movie)
     }
 
+    // Sets the system UI visibility based on device orientation
+    private fun setSystemUI() {
+        val configuration = resources.configuration
+
+        if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            showSystemUI(binding.root)
+        } else {
+            hideSystemUI(binding.root)
+        }
+    }
+
+    // Initializes observers for ViewModel data changes
+    private fun initObservers() {
+        viewModel.currentPosition.observe(viewLifecycleOwner) {
+            player.seekTo(it ?: 0L)
+        }
+    }
+
+    // Initializes views with movie details
     private fun initViews(movie: Movie) {
         binding.movie = movie
         setPlayer(movie = movie)
     }
 
+    // Configures ExoPlayer with media for playback
     private fun setPlayer(movie: Movie) {
         val mediaItem = getMediaItem(videoData = movie.videoData)
 
         binding.playerView.player = player
 
         player.apply {
+            playWhenReady = true
             addListener(this@MovieDetailFragment)
             setMediaItem(mediaItem)
             prepare()
         }
     }
 
+    // Retrieves MediaItem for video playback
     private fun getMediaItem(videoData: VideoData): MediaItem {
         val drmConfiguration = getDRMConfiguration(licenseUri = videoData.drmLicenseUri)
 
@@ -67,6 +105,7 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail), Player
             .build()
     }
 
+    // Retrieves DRM configuration for secure video playback
     private fun getDRMConfiguration(
         licenseUri: String?,
         scheme: UUID = C.WIDEVINE_UUID,
@@ -78,46 +117,38 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail), Player
             .build()
     }
 
-    // player listener functions
+    // Overrides onSaveInstanceState to save the current playback position
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        viewModel.setCurrentPosition(player.currentPosition)
+    }
 
+    // Overrides onDestroyView to release the ExoPlayer instance
+    override fun onDestroyView() {
+        super.onDestroyView()
+        player.release()
+    }
+
+    // Implements player listener functions for playback state changes
     override fun onPlaybackStateChanged(playbackState: Int) {
         super.onPlaybackStateChanged(playbackState)
         when (playbackState) {
             Player.STATE_BUFFERING -> {
-                binding.progressBar.isVisible = true
+                binding.progressBarContainer.isVisible = true
             }
 
             Player.STATE_READY -> {
-                binding.progressBar.isVisible = false
+                binding.progressBarContainer.isVisible = false
             }
 
+            // Handle other playback states as needed
             Player.STATE_ENDED -> {
+                // Handle playback end
             }
 
             Player.STATE_IDLE -> {
+                // Handle playback idle state
             }
         }
     }
-
-    override fun onPause() {
-        super.onPause()
-        Timber.d("onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        player.release()
-        Timber.d("onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Timber.d("onDestroy")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Timber.d("onDestroyView")
-    }
-
 }

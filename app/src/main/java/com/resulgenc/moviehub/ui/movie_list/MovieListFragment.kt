@@ -66,7 +66,7 @@ class MovieListFragment : BaseFragment(R.layout.fragment_movie_list) {
     }
 
     private fun onMovieSelected(movie: Movie) {
-        val direction = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment2(selectedMovie = movie)
+        val direction = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(selectedMovie = movie)
         findNavController().navigate(direction)
     }
 }

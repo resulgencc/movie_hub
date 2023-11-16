@@ -29,16 +29,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleSmall"
+            <FrameLayout
+                android:id="@+id/progressBarContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:clickable="true"
                 android:focusable="true"
-                android:padding="32dp"
-                android:visibility="visible" />
+                android:visibility="visible">
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center" />
+
+            </FrameLayout>
 
         </FrameLayout>
 
