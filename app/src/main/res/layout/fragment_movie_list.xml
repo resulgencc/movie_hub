@@ -30,47 +30,68 @@
 
         </com.google.android.material.appbar.MaterialToolbar>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/CategoryTitleStyle"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/popular_title" />
+            android:layout_height="0.5dp"
+            android:background="#FF4400" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/popularRecyclerView"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/recycler_view_height"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/adapter_item_movie_list" />
+            android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/CategoryTitleStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/primary_release_date_title" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/primaryReleaseDateRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/recycler_view_height"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/adapter_item_movie_list" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/CategoryTitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/popular_title" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/CategoryTitleStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/revenue_title" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/popularRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/recycler_view_height"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/adapter_item_movie_list" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/revenueRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/recycler_view_height"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/adapter_item_movie_list" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/CategoryTitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/primary_release_date_title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/primaryReleaseDateRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/recycler_view_height"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/adapter_item_movie_list" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/CategoryTitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/revenue_title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/revenueRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/recycler_view_height"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/adapter_item_movie_list" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
 </layout>
